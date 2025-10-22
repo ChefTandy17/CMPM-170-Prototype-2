@@ -136,15 +136,49 @@
 
     <hr id="divider">
     
-    <button class="enter-btn" id="enterButton" onclick="openPopup(); showAlert()">Enter</button>
+    <button class="enter-btn" id="enterButton" onclick="openRandomPopup(); showAlert()">Enter</button>
 
-    <div class="overlay" id="popupOverlay">
+    <!-- Popups -->
+    <div class="overlay" id="popupOverlay1">
         <div class="popupwindow">
             <h3>Professor Leckman</h3>
             <p>Isn't he a great professor?</p>
             <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwl0EH615WXSyxyA7s_cPSMJh7JXJ-NZ-EfqPdlQ541SI_SbYu_y3KxxJ-s8Vfp0s13nIsf_uajx0VPx6TQHsX6Co0j3c8PqDxBrYhrWmHQ" width="200" height="200"></p>
-            <button class="close-btn-yes" onclick="closePopup()">YES!</button>
-            <button class="close-btn-no" onclick="closePopup()">NO!</button>
+            <button class="close-btn-yes" onclick="closePopup('popupOverlay1')">YES!</button>
+            <button class="close-btn-no" onclick="closePopup('popupOverlay1')">NO!</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="popupOverlay2">
+        <div class="popupwindow">
+            <h3>WARNING! WARNING! YOU HAVE RECEIVED A VIRUS.</h3>
+            <p>You have appeared to have accumulated several viruses. Please download antivirus now</p>
+            <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwl0EH615WXSyxyA7s_cPSMJh7JXJ-NZ-EfqPdlQ541SI_SbYu_y3KxxJ-s8Vfp0s13nIsf_uajx0VPx6TQHsX6Co0j3c8PqDxBrYhrWmHQ" width="200" height="200"></p>
+            <button class="close-btn-yes" onclick="closePopup('popupOverlay2')">DOWNLOAD</button>
+            <button class="close-btn-no" onclick="closePopup('popupOverlay2')">X</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="popupOverlay3">
+        <div class="popupwindow">
+            <h3>You have received $1,000,000!!!</h3>
+            <p>Kindly accept the cash that has been sent to your account.</p>
+            <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwl0EH615WXSyxyA7s_cPSMJh7JXJ-NZ-EfqPdlQ541SI_SbYu_y3KxxJ-s8Vfp0s13nIsf_uajx0VPx6TQHsX6Co0j3c8PqDxBrYhrWmHQ" width="200" height="200"></p>
+            <button class="close-btn-yes" onclick="closePopup('popupOverlay3')">Accept Cash!!!!</button>
+            <button class="close-btn-no" onclick="closePopup('popupOverlay3')">X</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="popupOverlay4">
+        <div class="popupwindow">
+            <h3>Enjoying the website? Please leave a review!</h3>
+            <p>Give a rating from 1✰ to 5✰ on your satisfaction.</p>
+            <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwl0EH615WXSyxyA7s_cPSMJh7JXJ-NZ-EfqPdlQ541SI_SbYu_y3KxxJ-s8Vfp0s13nIsf_uajx0VPx6TQHsX6Co0j3c8PqDxBrYhrWmHQ" width="200" height="200"></p>
+            <button class="close-btn-no" onclick="closePopup('popupOverlay4')">✰</button>
+            <button class="close-btn-no" onclick="closePopup('popupOverlay4')">✰✰</button>
+            <button class="close-btn-no" onclick="closePopup('popupOverlay4')">✰✰✰</button>
+            <button class="close-btn-yes" onclick="closePopup('popupOverlay4')">✰✰✰✰</button>
+            <button class="close-btn-yes" onclick="closePopup('popupOverlay4')">✰✰✰✰✰</button>
         </div>
     </div>
 
@@ -201,19 +235,25 @@
 
         //To reference the setTimeout function: https://www.w3schools.com/jsref/met_win_settimeout.asp
         function startPopupTimer() {
-            popupTimer = setTimeout(openPopup, 8000);
+            popupTimer = setTimeout(openRandomPopup, 8000);
         }
 
         function startAlertTimer() {
             alertTimer = setTimeout(showAlert, 5000);
         }
-
-        function openPopup() {
-            document.getElementById("popupOverlay").style.display = "flex";
+        
+        function openRandomPopup() {
+            var randNum = Math.floor(Math.random() * 4) + 1;
+            var randPopupId = "popupOverlay" + randNum;
+            openPopup(randPopupId);
         }
 
-        function closePopup() {
-            document.getElementById("popupOverlay").style.display = "none";
+        function openPopup(popupId) {
+            document.getElementById(popupId).style.display = "flex";
+        }
+
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = "none";
             startPopupTimer();
         }
 
@@ -226,12 +266,16 @@
             startAlertTimer();
         }
 
-        //Keyboard shortcut for moving elements
+        // Keyboard shortcut for moving elements
         document.addEventListener('keydown', function(event) {
             if (event.key === 'c' || event.key === 'C') {
                 moveElements(); // Trigger movement immediately
             }
+            if (event.key === 'v' || event.key === 'V') {
+                openRandomPopup(); // Trigger popup immediately
+            }
         });
+
     </script>
 </body>
 </html>
