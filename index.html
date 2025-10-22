@@ -97,6 +97,17 @@
             min-height: 100vh;
             overflow-x: auto;
         }
+
+        /* CHANGE 3: Shake animation for popup windows on hover */
+        @keyframes shake {
+          0%, 100% { transform: translate(0, 0); }
+          25% { transform: translate(-5px, 5px); }
+          50% { transform: translate(5px, -5px); }
+          75% { transform: translate(-5px, -5px); }
+        }
+        .popupwindow:hover {
+          animation: shake 0.3s infinite;
+        }
     </style>
 
     <title>CMPM 170 Prototype 2</title>
@@ -138,7 +149,7 @@
     
     <button class="enter-btn" id="enterButton" onclick="openRandomPopup(); showAlert()">Enter</button>
 
-    <!-- Popups -->
+    <!-- Existing Popups -->
     <div class="overlay" id="popupOverlay1">
         <div class="popupwindow">
             <h3>Professor Leckman</h3>
@@ -180,6 +191,28 @@
             <button class="close-btn-yes" onclick="closePopup('popupOverlay4')">✰✰✰✰</button>
             <button class="close-btn-yes" onclick="closePopup('popupOverlay4')">✰✰✰✰✰</button>
         </div>
+    </div>
+
+    <div class="overlay" id="popupOverlay5">
+      <div class="popupwindow">
+        <h3>⚠️ Suspicious Download Detected!</h3>
+        <p>Your system has detected an unauthorized download attempt.<br>
+           Do you wish to <b>install "SuperClean Antivirus 2.0"</b> to fix this issue?</p>
+        <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwl0EH615WXSyxyA7s_cPSMJh7JXJ-NZ-EfqPdlQ541SI_SbYu_y3KxxJ-s8Vfp0s13nIsf_uajx0VPx6TQHsX6Co0j3c8PqDxBrYhrWmHQ" width="150" height="150"></p>
+        <button class="close-btn-yes" onclick="closePopup('popupOverlay5')">Install Now</button>
+        <button class="close-btn-no" onclick="closePopup('popupOverlay5')">Ignore Warning</button>
+      </div>
+    </div>
+
+    <div class="overlay" id="popupOverlay6">
+      <div class="popupwindow">
+        <h3>💰 Congratulations!</h3>
+        <p>You are our <b>1,000,000th visitor!</b><br>
+           Click below to claim your <b>FREE iPhone 16 Ultra Pro Max</b> giveaway.</p>
+        <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwl0EH615WXSyxyA7s_cPSMJh7JXJ-NZ-EfqPdlQ541SI_SbYu_y3KxxJ-s8Vfp0s13nIsf_uajx0VPx6TQHsX6Co0j3c8PqDxBrYhrWmHQ" width="120" height="120"></p>
+        <button class="close-btn-yes" onclick="closePopup('popupOverlay6')">Claim Prize 🎁</button>
+        <button class="close-btn-no" onclick="closePopup('popupOverlay6')">No Thanks</button>
+      </div>
     </div>
 
     <script>
@@ -233,7 +266,7 @@
             });
         }
 
-        //To reference the setTimeout function: https://www.w3schools.com/jsref/met_win_settimeout.asp
+        // To reference the setTimeout function: https://www.w3schools.com/jsref/met_win_settimeout.asp
         function startPopupTimer() {
             popupTimer = setTimeout(openRandomPopup, 8000);
         }
@@ -243,7 +276,7 @@
         }
         
         function openRandomPopup() {
-            var randNum = Math.floor(Math.random() * 4) + 1;
+            var randNum = Math.floor(Math.random() * 6) + 1;
             var randPopupId = "popupOverlay" + randNum;
             openPopup(randPopupId);
         }
@@ -266,7 +299,6 @@
             startAlertTimer();
         }
 
-        // Keyboard shortcut for moving elements
         document.addEventListener('keydown', function(event) {
             if (event.key === 'c' || event.key === 'C') {
                 moveElements(); // Trigger movement immediately
