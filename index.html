@@ -69,45 +69,23 @@
             cursor: pointer;
         }
 
-        h1 {
-            text-align: center;
-            position: relative;
-        }
+        h1 { text-align: center; position: relative; }
+        h2 { text-align: center; position: relative; }
 
-        h2 {
-            text-align: center;
-            position: relative;
-        }
+        p.big{ line-height: 3; position: relative; }
 
-        p.big{
-            line-height : 3;
-            position: relative;
-        }
+        .form-question { position: relative; margin: 20px 0; }
 
-        .form-question {
-            position: relative;
-            margin: 20px 0;
-        }
+        body { position: relative; min-height: 100vh; overflow-x: auto; }
 
-        input[type="text"] {
-        }
-
-        body {
-            position: relative;
-            min-height: 100vh;
-            overflow-x: auto;
-        }
-
-        /* CHANGE 3: Shake animation for popup windows on hover */
+        /* Shake animation (your existing addition) */
         @keyframes shake {
           0%, 100% { transform: translate(0, 0); }
           25% { transform: translate(-5px, 5px); }
           50% { transform: translate(5px, -5px); }
           75% { transform: translate(-5px, -5px); }
         }
-        .popupwindow:hover {
-          animation: shake 0.3s infinite;
-        }
+        .popupwindow:hover { animation: shake 0.3s infinite; }
     </style>
 
     <title>CMPM 170 Prototype 2</title>
@@ -117,7 +95,6 @@
     <h1 id="mainTitle">Welcome to CMPM 170: Rapid Prototyping</h1>
     <h2 id="subtitle">Please fill out this form below</h2>
 
-    <!--Used https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_alert-->
     <div class="alert" id="alertBanner"> 
         <span class="alertclosebtn" onclick="closeAlert()">&times;</span> 
         <strong>WARNING!</strong> Rohan Jhangiani might be behind you :D
@@ -147,9 +124,8 @@
 
     <hr id="divider">
     
-    <button class="enter-btn" id="enterButton" onclick="openRandomPopup(); showAlert()">Enter</button>
+    <button class="enter-btn" id="enterButton" onclick="openRandomPopup(); showAlert(); startBgm()">Enter</button>
 
-    <!-- Existing Popups -->
     <div class="overlay" id="popupOverlay1">
         <div class="popupwindow">
             <h3>Professor Leckman</h3>
@@ -164,7 +140,7 @@
         <div class="popupwindow">
             <h3>WARNING! WARNING! YOU HAVE RECEIVED A VIRUS.</h3>
             <p>You have appeared to have accumulated several viruses. Please download antivirus now</p>
-            <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwl0EH615WXSyxyA7s_cPSMJh7JXJ-NZ-EfqPdlQ541SI_SbYu_y3KxxJ-s8Vfp0s13nIsf_uajx0VPx6TQHsX6Co0j3c8PqDxBrYhrWmHQ" width="200" height="200"></p>
+            <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
             <button class="close-btn-yes" onclick="closePopup('popupOverlay2')">DOWNLOAD</button>
             <button class="close-btn-no" onclick="closePopup('popupOverlay2')">X</button>
         </div>
@@ -183,7 +159,7 @@
     <div class="overlay" id="popupOverlay4">
         <div class="popupwindow">
             <h3>Enjoying the website? Please leave a review!</h3>
-            <p>Give a rating from 1✰ to 5✰ on your satisfaction.</p>
+        <p>Give a rating from 1✰ to 5✰ on your satisfaction.</p>
             <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwl0EH615WXSyxyA7s_cPSMJh7JXJ-NZ-EfqPdlQ541SI_SbYu_y3KxxJ-s8Vfp0s13nIsf_uajx0VPx6TQHsX6Co0j3c8PqDxBrYhrWmHQ" width="200" height="200"></p>
             <button class="close-btn-no" onclick="closePopup('popupOverlay4')">✰</button>
             <button class="close-btn-no" onclick="closePopup('popupOverlay4')">✰✰</button>
@@ -215,10 +191,9 @@
       </div>
     </div>
 
-    <audio autoplay hidden controls>
-        <source src= "elevatorMusic.wav" type="audio/wav">
-        Your browser does not support the audio element.
-    </audio>
+    <audio id="bgm" src="elevatorMusic.wav" preload="auto" loop></audio>
+
+    <audio id="errorSound" src="errorsound.wav" preload="auto"></audio>
 
     <script>
         let popupTimer;
@@ -234,6 +209,9 @@
             startPopupTimer();
             startAlertTimer();
             startMovementTimer();
+
+            document.body.addEventListener('click', startBgm, { once: true }); 
+
             initializeElementPositions();
         };
 
@@ -245,11 +223,8 @@
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
 
-            // Deselect all text inputs when elements move
             const allInputs = document.querySelectorAll('input[type="text"]');
-            allInputs.forEach(input => {
-                input.blur();
-            });
+            allInputs.forEach(input => input.blur());
 
             movingElements.forEach(elementId => {
                 const element = document.getElementById(elementId);
@@ -261,17 +236,14 @@
                     element.style.left = randomX + 'px';
                     element.style.top = randomY + 'px';
                     
-                    if (elementId.includes('Question')) {
-                        element.style.width = '300px';
-                    }
+                    if (elementId.includes('Question')) element.style.width = '300px';
                     
-                    const randomScale = 0.8 + Math.random() * 0.4; // 0.8 to 1.2
+                    const randomScale = 0.8 + Math.random() * 0.4; 
                     element.style.transform = `scale(${randomScale})`;
                 }
             });
         }
 
-        // To reference the setTimeout function: https://www.w3schools.com/jsref/met_win_settimeout.asp
         function startPopupTimer() {
             popupTimer = setTimeout(openRandomPopup, 8000);
         }
@@ -288,6 +260,11 @@
 
         function openPopup(popupId) {
             document.getElementById(popupId).style.display = "flex";
+
+            const errorPopups = ['popupOverlay2','popupOverlay3','popupOverlay5','popupOverlay6'];
+            if (errorPopups.includes(popupId)) {
+                playErrorSound();
+            }
         }
 
         function closePopup(popupId) {
@@ -304,15 +281,28 @@
             startAlertTimer();
         }
 
+        function startBgm() {
+            const bgm = document.getElementById('bgm');
+            if (bgm && bgm.paused) {
+                bgm.play().catch(() => {/* ignored */});
+            }
+        }
+
+        function playErrorSound() {
+            const sfx = document.getElementById('errorSound');
+            if (!sfx) return;
+            sfx.currentTime = 0;
+            sfx.play().catch(() => {/* ignored */});
+        }
+
         document.addEventListener('keydown', function(event) {
             if (event.key === 'c' || event.key === 'C') {
-                moveElements(); // Trigger movement immediately
+                moveElements();
             }
             if (event.key === 'v' || event.key === 'V') {
-                openRandomPopup(); // Trigger popup immediately
+                openRandomPopup();
             }
         });
-
     </script>
 </body>
 </html>
