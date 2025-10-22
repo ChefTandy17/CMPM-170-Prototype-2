@@ -68,16 +68,34 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         h1 {
             text-align: center;
+            position: relative;
         }
 
         h2 {
             text-align: center;
+            position: relative;
         }
 
         p.big{
             line-height : 3;
+            position: relative;
+        }
+
+        .form-question {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        input[type="text"] {
+        }
+
+        body {
+            position: relative;
+            min-height: 100vh;
+            overflow-x: auto;
         }
     </style>
 
@@ -85,8 +103,8 @@
 </head>
 
 <body bgcolor="add8e6">
-    <h1>Welcome to CMPM 170: Rapid Prototyping</h1>
-    <h2>Please fill out this form below</h2>
+    <h1 id="mainTitle">Welcome to CMPM 170: Rapid Prototyping</h1>
+    <h2 id="subtitle">Please fill out this form below</h2>
 
     <!--Used https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_alert-->
     <div class="alert" id="alertBanner"> 
@@ -94,24 +112,31 @@
         <strong>WARNING!</strong> Rohan Jhangiani might be behind you :D
     </div>
     
-    <p class="big">
-    <br><b>What is your name?</b> 
-    <input type="text" placeholder="Type something here...">
+    <div class="big" id="formContainer">
+        <div class="form-question" id="nameQuestion">
+            <b>What is your name?</b> 
+            <input type="text" placeholder="Type something here..." id="nameInput">
+        </div>
 
-    <br><b>What is the date?</b> 
-    <input type="text" placeholder="Type something here...">
+        <div class="form-question" id="dateQuestion">
+            <b>What is the date?</b> 
+            <input type="text" placeholder="Type something here..." id="dateInput">
+        </div>
+        
+        <div class="form-question" id="birthdayQuestion">
+            <b>What is your birthday?</b> 
+            <input type="text" placeholder="Type something here..." id="birthdayInput">
+        </div>
+
+        <div class="form-question" id="taQuestion">
+            <b>Who is your favorite TA?</b> 
+            <input type="text" placeholder="Type something here..." id="taInput">
+        </div>
+    </div>
+
+    <hr id="divider">
     
-    <br><b>What is your birthday?</b> 
-    <input type="text" placeholder="Type something here...">
-
-    <br><b>Who is your favorite TA?</b> 
-    <input type="text" placeholder="Type something here...">
-    </p>
-
-    <hr>
-    <!--Just for the pop up to appear again-->
-    <button class="enter-btn" onclick="openPopup(); showAlert()">Enter</button>
-
+    <button class="enter-btn" id="enterButton" onclick="openPopup(); showAlert()">Enter</button>
 
     <div class="overlay" id="popupOverlay">
         <div class="popupwindow">
@@ -126,11 +151,53 @@
     <script>
         let popupTimer;
         let alertTimer;
+        let movementTimer;
+
+        const movingElements = [
+            'subtitle', 'nameQuestion', 'dateQuestion', 
+            'birthdayQuestion', 'taQuestion'
+        ];
 
         window.onload = function() {
             startPopupTimer();
             startAlertTimer();
+            startMovementTimer();
+            initializeElementPositions();
         };
+
+        function startMovementTimer() {
+            movementTimer = setInterval(moveElements, 3000);
+        }
+
+        function moveElements() {
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+
+            // Deselect all text inputs when elements move
+            const allInputs = document.querySelectorAll('input[type="text"]');
+            allInputs.forEach(input => {
+                input.blur();
+            });
+
+            movingElements.forEach(elementId => {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    const randomX = Math.random() * (windowWidth - 200);
+                    const randomY = Math.random() * (windowHeight - 100); 
+                    
+                    element.style.position = 'absolute';
+                    element.style.left = randomX + 'px';
+                    element.style.top = randomY + 'px';
+                    
+                    if (elementId.includes('Question')) {
+                        element.style.width = '300px';
+                    }
+                    
+                    const randomScale = 0.8 + Math.random() * 0.4; // 0.8 to 1.2
+                    element.style.transform = `scale(${randomScale})`;
+                }
+            });
+        }
 
         //To reference the setTimeout function: https://www.w3schools.com/jsref/met_win_settimeout.asp
         function startPopupTimer() {
@@ -158,6 +225,13 @@
             document.getElementById("alertBanner").style.display = "none";
             startAlertTimer();
         }
+
+        //Keyboard shortcut for moving elements
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'c' || event.key === 'C') {
+                moveElements(); // Trigger movement immediately
+            }
+        });
     </script>
 </body>
 </html>
