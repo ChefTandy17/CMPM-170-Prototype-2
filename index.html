@@ -1,308 +1,234 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        hr {
-            display: block;
-            margin-block-start: 1.5em;
-            margin-block-end: 1.5em;
-            color: rgb(82, 82, 255);
-            border-style: inset;
-            border-width: 4px;
-        }
-
-        .alert {
-            padding: 20px;
-            background-color: #a83135;
-            color: white;
-            display: none;
-        }
-
-        .alertclosebtn {
-            margin-left: 15px;
-            color: rgb(255, 255, 255);
-            font-weight: bold;
-            float: right;
-            font-size: 20px;
-            line-height: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .overlay {
-            display: none; 
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            justify-content: center;
-            align-items: center;
-            transition: 0.5s;
-        }
-
-        .popupwindow {
-            background: white;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            width: 300px;
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .close-btn-yes, .close-btn-no {
-            background: rgb(59, 78, 165);
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .enter-btn {
-            background: black;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        h1 { text-align: center; position: relative; }
-        h2 { text-align: center; position: relative; }
-
-        p.big{ line-height: 3; position: relative; }
-
-        .form-question { position: relative; margin: 20px 0; }
-
-        body { position: relative; min-height: 100vh; overflow-x: auto; }
-
-        /* Shake animation (your existing addition) */
-        @keyframes shake {
-          0%, 100% { transform: translate(0, 0); }
-          25% { transform: translate(-5px, 5px); }
-          50% { transform: translate(5px, -5px); }
-          75% { transform: translate(-5px, -5px); }
-        }
-        .popupwindow:hover { animation: shake 0.3s infinite; }
-    </style>
-
-    <title>CMPM 170 Prototype 2</title>
+  <style>
+    hr {
+      display: block;
+      margin-block-start: 1.5em;
+      margin-block-end: 1.5em;
+      color: rgb(82, 82, 255);
+      border-style: inset;
+      border-width: 4px;
+    }
+    .alert {
+      padding: 20px;
+      background-color: #a83135;
+      color: white;
+      display: none;
+    }
+    .alertclosebtn {
+      margin-left: 15px;
+      color: #fff;
+      font-weight: bold;
+      float: right;
+      font-size: 20px;
+      line-height: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      transition: 0.5s;
+      z-index: 9999;
+    }
+    .popupwindow {
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      width: 300px;
+      text-align: center;
+      transition: 0.3s;
+    }
+    .close-btn-yes, .close-btn-no {
+      background: rgb(59, 78, 165);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .enter-btn {
+      background: black;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    h1, h2 { text-align: center; }
+    p.big { line-height: 3; }
+    .form-question { margin: 20px 0; }
+    body { min-height: 100vh; overflow-x: auto; }
+  </style>
+  <title>CMPM 170 Prototype 2</title>
 </head>
 
 <body bgcolor="add8e6">
-    <h1 id="mainTitle">Welcome to CMPM 170: Rapid Prototyping</h1>
-    <h2 id="subtitle">Please fill out this form below</h2>
+  <h1 id="mainTitle">Welcome to CMPM 170: Rapid Prototyping</h1>
+  <h2 id="subtitle">Please fill out this form below</h2>
 
-    <div class="alert" id="alertBanner"> 
-        <span class="alertclosebtn" onclick="closeAlert()">&times;</span> 
-        <strong>WARNING!</strong> Rohan Jhangiani might be behind you :D
+  <div class="alert" id="alertBanner">
+    <span class="alertclosebtn" onclick="closeAlert()">&times;</span>
+    <strong>WARNING!</strong> Rohan Jhangiani might be behind you :D
+  </div>
+
+  <div class="big" id="formContainer">
+    <div class="form-question" id="nameQuestion">
+      <b>What is your name?</b>
+      <input type="text" placeholder="Type something here..." id="nameInput">
     </div>
-    
-    <div class="big" id="formContainer">
-        <div class="form-question" id="nameQuestion">
-            <b>What is your name?</b> 
-            <input type="text" placeholder="Type something here..." id="nameInput">
-        </div>
-
-        <div class="form-question" id="dateQuestion">
-            <b>What is the date?</b> 
-            <input type="text" placeholder="Type something here..." id="dateInput">
-        </div>
-        
-        <div class="form-question" id="birthdayQuestion">
-            <b>What is your birthday?</b> 
-            <input type="text" placeholder="Type something here..." id="birthdayInput">
-        </div>
-
-        <div class="form-question" id="taQuestion">
-            <b>Who is your favorite TA?</b> 
-            <input type="text" placeholder="Type something here..." id="taInput">
-        </div>
+    <div class="form-question" id="dateQuestion">
+      <b>What is the date?</b>
+      <input type="text" placeholder="Type something here..." id="dateInput">
     </div>
-
-    <hr id="divider">
-    
-    <button class="enter-btn" id="enterButton" onclick="openRandomPopup(); showAlert(); startBgm()">Enter</button>
-
-    <div class="overlay" id="popupOverlay1">
-        <div class="popupwindow">
-            <h3>Professor Leckman</h3>
-            <p>Isn't he a great professor?</p>
-            <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwl0EH615WXSyxyA7s_cPSMJh7JXJ-NZ-EfqPdlQ541SI_SbYu_y3KxxJ-s8Vfp0s13nIsf_uajx0VPx6TQHsX6Co0j3c8PqDxBrYhrWmHQ" width="200" height="200"></p>
-            <button class="close-btn-yes" onclick="closePopup('popupOverlay1')">YES!</button>
-            <button class="close-btn-no" onclick="closePopup('popupOverlay1')">NO!</button>
-        </div>
+    <div class="form-question" id="birthdayQuestion">
+      <b>What is your birthday?</b>
+      <input type="text" placeholder="Type something here..." id="birthdayInput">
     </div>
-
-    <div class="overlay" id="popupOverlay2">
-        <div class="popupwindow">
-            <h3>WARNING! WARNING! YOU HAVE RECEIVED A VIRUS.</h3>
-            <p>You have appeared to have accumulated several viruses. Please download antivirus now</p>
-            <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
-            <button class="close-btn-yes" onclick="closePopup('popupOverlay2')">DOWNLOAD</button>
-            <button class="close-btn-no" onclick="closePopup('popupOverlay2')">X</button>
-        </div>
+    <div class="form-question" id="taQuestion">
+      <b>Who is your favorite TA?</b>
+      <input type="text" placeholder="Type something here..." id="taInput">
     </div>
+  </div>
 
-    <div class="overlay" id="popupOverlay3">
-        <div class="popupwindow">
-            <h3>You have received $1,000,000!!!</h3>
-            <p>Kindly accept the cash that has been sent to your account.</p>
-            <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
-            <button class="close-btn-yes" onclick="closePopup('popupOverlay3')">Accept Cash!!!!</button>
-            <button class="close-btn-no" onclick="closePopup('popupOverlay3')">X</button>
-        </div>
+  <hr id="divider">
+
+  <button class="enter-btn" id="enterButton" onclick="openRandomPopup(); showAlert(); startBgm()">Enter</button>
+
+  <!-- Popups -->
+  <div class="overlay" id="popupOverlay1">
+    <div class="popupwindow">
+      <h3>Professor Leckman</h3>
+      <p>Isn't he a great professor?</p>
+      <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwl0EH615WXSyxyA7s_cPSMJh7JXJ-NZ-EfqPdlQ541SI_SbYu_y3KxxJ-s8Vfp0s13nIsf_uajx0VPx6TQHsX6Co0j3c8PqDxBrYhrWmHQ" width="200" height="200"></p>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay1')">YES!</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay1')">NO!</button>
     </div>
+  </div>
 
-    <div class="overlay" id="popupOverlay4">
-        <div class="popupwindow">
-            <h3>Enjoying the website? Please leave a review!</h3>
-        <p>Give a rating from 1✰ to 5✰ on your satisfaction.</p>
-            <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwl0EH615WXSyxyA7s_cPSMJh7JXJ-NZ-EfqPdlQ541SI_SbYu_y3KxxJ-s8Vfp0s13nIsf_uajx0VPx6TQHsX6Co0j3c8PqDxBrYhrWmHQ" width="200" height="200"></p>
-            <button class="close-btn-no" onclick="closePopup('popupOverlay4')">✰</button>
-            <button class="close-btn-no" onclick="closePopup('popupOverlay4')">✰✰</button>
-            <button class="close-btn-no" onclick="closePopup('popupOverlay4')">✰✰✰</button>
-            <button class="close-btn-yes" onclick="closePopup('popupOverlay4')">✰✰✰✰</button>
-            <button class="close-btn-yes" onclick="closePopup('popupOverlay4')">✰✰✰✰✰</button>
-        </div>
+  <div class="overlay" id="popupOverlay2">
+    <div class="popupwindow">
+      <h3>WARNING! WARNING! YOU HAVE RECEIVED A VIRUS.</h3>
+      <p>You have appeared to have accumulated several viruses. Please download antivirus now</p>
+      <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay2')">DOWNLOAD</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay2')">X</button>
     </div>
+  </div>
 
-    <div class="overlay" id="popupOverlay5">
-      <div class="popupwindow">
-        <h3>⚠️ Suspicious Download Detected!</h3>
-        <p>Your system has detected an unauthorized download attempt.<br>
-           Do you wish to <b>install "SuperClean Antivirus 2.0"</b> to fix this issue?</p>
-        <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
-        <button class="close-btn-yes" onclick="closePopup('popupOverlay5')">Install Now</button>
-        <button class="close-btn-no" onclick="closePopup('popupOverlay5')">Ignore Warning</button>
-      </div>
+  <div class="overlay" id="popupOverlay3">
+    <div class="popupwindow">
+      <h3>You have received $1,000,000!!!</h3>
+      <p>Kindly accept the cash that has been sent to your account.</p>
+      <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay3')">Accept Cash!!!!</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay3')">X</button>
     </div>
+  </div>
 
-    <div class="overlay" id="popupOverlay6">
-      <div class="popupwindow">
-        <h3>💰 Congratulations!</h3>
-        <p>You are our <b>1,000,000th visitor!</b><br>
-           Click below to claim your <b>FREE iPhone 16 Ultra Pro Max</b> giveaway.</p>
-        <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
-        <button class="close-btn-yes" onclick="closePopup('popupOverlay6')">Claim Prize 🎁</button>
-        <button class="close-btn-no" onclick="closePopup('popupOverlay6')">No Thanks</button>
-      </div>
+  <div class="overlay" id="popupOverlay4">
+    <div class="popupwindow">
+      <h3>Enjoying the website? Please leave a review!</h3>
+      <p>Give a rating from 1✰ to 5✰ on your satisfaction.</p>
+      <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwl0EH615WXSyxyA7s_cPSMJh7JXJ-NZ-EfqPdlQ541SI_SbYu_y3KxxJ-s8Vfp0s13nIsf_uajx0VPx6TQHsX6Co0j3c8PqDxBrYhrWmHQ" width="200" height="200"></p>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay4')">✰</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay4')">✰✰</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay4')">✰✰✰</button>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay4')">✰✰✰✰</button>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay4')">✰✰✰✰✰</button>
     </div>
+  </div>
 
-    <audio id="bgm" src="elevatorMusic.wav" preload="auto" loop></audio>
+  <div class="overlay" id="popupOverlay5">
+    <div class="popupwindow">
+      <h3>⚠️ Suspicious Download Detected!</h3>
+      <p>Your system has detected an unauthorized download attempt.<br>
+         Do you wish to <b>install "SuperClean Antivirus 2.0"</b> to fix this issue?</p>
+      <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay5')">Install Now</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay5')">Ignore Warning</button>
+    </div>
+  </div>
 
-    <audio id="errorSound" src="errorsound.wav" preload="auto"></audio>
+  <div class="overlay" id="popupOverlay6">
+    <div class="popupwindow">
+      <h3>💰 Congratulations!</h3>
+      <p>You are our <b>1,000,000th visitor!</b><br>
+         Click below to claim your <b>FREE iPhone 16 Ultra Pro Max</b> giveaway.</p>
+      <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay6')">Claim Prize 🎁</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay6')">No Thanks</button>
+    </div>
+  </div>
 
-    <script>
-        let popupTimer;
-        let alertTimer;
-        let movementTimer;
+  <!-- audio -->
+  <audio id="bgm" src="elevatorMusic.wav" preload="auto" loop></audio>
+  <audio id="errorSound" src="errorsound.wav" preload="auto"></audio>
 
-        const movingElements = [
-            'subtitle', 'nameQuestion', 'dateQuestion', 
-            'birthdayQuestion', 'taQuestion'
-        ];
+  <script>
+    let popupTimer;
+    let alertTimer;
 
-        window.onload = function() {
-            startPopupTimer();
-            startAlertTimer();
-            startMovementTimer();
+    window.onload = function () {
+      startPopupTimer();
+      startAlertTimer();
+      document.body.addEventListener('click', startBgm, { once: true });
+    };
 
-            document.body.addEventListener('click', startBgm, { once: true }); 
+    function startPopupTimer() {
+      popupTimer = setTimeout(openRandomPopup, 8000);
+    }
+    function openRandomPopup() {
+      var randNum = Math.floor(Math.random() * 6) + 1;
+      var randPopupId = "popupOverlay" + randNum;
+      openPopup(randPopupId);
+    }
 
-            initializeElementPositions();
-        };
+    function startAlertTimer() {
+      alertTimer = setTimeout(showAlert, 5000);
+    }
 
-        function startMovementTimer() {
-            movementTimer = setInterval(moveElements, 3000);
-        }
+    function openPopup(popupId) {
+      document.getElementById(popupId).style.display = "flex";
+      const errorPopups = ['popupOverlay2','popupOverlay3','popupOverlay5','popupOverlay6'];
+      if (errorPopups.includes(popupId)) playErrorSound();
+    }
+    function closePopup(popupId) {
+      document.getElementById(popupId).style.display = "none";
+      startPopupTimer(); 
+    }
+    function showAlert() {
+      document.getElementById("alertBanner").style.display = "block";
+    }
+    function closeAlert() {
+      document.getElementById("alertBanner").style.display = "none";
+      startAlertTimer(); 
+    }
 
-        function moveElements() {
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
+    function startBgm() {
+      const bgm = document.getElementById('bgm');
+      if (bgm && bgm.paused) {
+        bgm.play().catch(() => {});
+      }
+    }
+    function playErrorSound() {
+      const sfx = document.getElementById('errorSound');
+      if (!sfx) return;
+      sfx.currentTime = 0;
+      sfx.play().catch(() => {});
+    }
 
-            const allInputs = document.querySelectorAll('input[type="text"]');
-            allInputs.forEach(input => input.blur());
-
-            movingElements.forEach(elementId => {
-                const element = document.getElementById(elementId);
-                if (element) {
-                    const randomX = Math.random() * (windowWidth - 200);
-                    const randomY = Math.random() * (windowHeight - 100); 
-                    
-                    element.style.position = 'absolute';
-                    element.style.left = randomX + 'px';
-                    element.style.top = randomY + 'px';
-                    
-                    if (elementId.includes('Question')) element.style.width = '300px';
-                    
-                    const randomScale = 0.8 + Math.random() * 0.4; 
-                    element.style.transform = `scale(${randomScale})`;
-                }
-            });
-        }
-
-        function startPopupTimer() {
-            popupTimer = setTimeout(openRandomPopup, 8000);
-        }
-
-        function startAlertTimer() {
-            alertTimer = setTimeout(showAlert, 5000);
-        }
-        
-        function openRandomPopup() {
-            var randNum = Math.floor(Math.random() * 6) + 1;
-            var randPopupId = "popupOverlay" + randNum;
-            openPopup(randPopupId);
-        }
-
-        function openPopup(popupId) {
-            document.getElementById(popupId).style.display = "flex";
-
-            const errorPopups = ['popupOverlay2','popupOverlay3','popupOverlay5','popupOverlay6'];
-            if (errorPopups.includes(popupId)) {
-                playErrorSound();
-            }
-        }
-
-        function closePopup(popupId) {
-            document.getElementById(popupId).style.display = "none";
-            startPopupTimer();
-        }
-
-        function showAlert() {
-            document.getElementById("alertBanner").style.display = "block";
-        }
-
-        function closeAlert() {
-            document.getElementById("alertBanner").style.display = "none";
-            startAlertTimer();
-        }
-
-        function startBgm() {
-            const bgm = document.getElementById('bgm');
-            if (bgm && bgm.paused) {
-                bgm.play().catch(() => {/* ignored */});
-            }
-        }
-
-        function playErrorSound() {
-            const sfx = document.getElementById('errorSound');
-            if (!sfx) return;
-            sfx.currentTime = 0;
-            sfx.play().catch(() => {/* ignored */});
-        }
-
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'c' || event.key === 'C') {
-                moveElements();
-            }
-            if (event.key === 'v' || event.key === 'V') {
-                openRandomPopup();
-            }
-        });
-    </script>
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'v' || event.key === 'V') openRandomPopup();
+    });
+  </script>
 </body>
 </html>
