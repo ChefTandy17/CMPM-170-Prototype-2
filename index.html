@@ -12,7 +12,7 @@
     }
     .alert {
       padding: 20px;
-      background-color: #a83135;
+      background-color: #35d37c;
       color: white;
       display: none;
     }
@@ -34,7 +34,7 @@
       background: none;
       justify-content: center;
       align-items: center;
-      z-index: auto;
+      z-index: 1;
     }
     .popupwindow {
       position: fixed;
@@ -64,7 +64,7 @@
     }
     .progressContainer {
       background: #8e8e8e;
-      width: 300px;
+      width: 400px;
       height: 20px;
       border-radius: 10px;
       overflow: hidden;
@@ -78,7 +78,7 @@
       width: 0%;
       transition: width 0.3s ease;
       border-radius: 10px 0 0 10px;
-      z-index: 9999;
+      z-index: 10000;
     }
     h1, h2 { text-align: center; }
     p.big { line-height: 3; }
@@ -94,7 +94,7 @@
 
   <div class="alert" id="alertBanner">
     <span class="alertclosebtn" onclick="closeAlert()">&times;</span>
-    <strong>WARNING!</strong> Rohan Jhangiani might be behind you :D
+    <strong>You closed all the popups!</strong> Time to submit :)
   </div>
 
   <div class="big" id="formContainer">
@@ -117,11 +117,6 @@
   </div>
 
   <hr id="divider">
-
-  <div class="progressContainer">
-    <div id="progressBar" class="progressBar"></div>
-  </div>
-  <button class="enter-btn" id="enterButton" onclick="openRandomPopup(); showAlert(); startBgm()">Enter</button>
 
   <!-- Popups -->
   <div class="overlay" id="popupOverlay1">
@@ -189,15 +184,150 @@
     </div>
   </div>
 
+  <!-- Okay this is super lame LMAO I just copy and pasted the Popups a few times to get it to work. Sorry skull emoji -->
+   <div class="overlay" id="popupOverlay7">
+    <div class="popupwindow">
+      <h3>Professor Leckman</h3>
+      <p>Isn't he a great professor?</p>
+      <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwl0EH615WXSyxyA7s_cPSMJh7JXJ-NZ-EfqPdlQ541SI_SbYu_y3KxxJ-s8Vfp0s13nIsf_uajx0VPx6TQHsX6Co0j3c8PqDxBrYhrWmHQ" width="200" height="200"></p>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay7')">YES!</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay7')">NO!</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="popupOverlay8">
+    <div class="popupwindow">
+      <h3>WARNING! WARNING! YOU HAVE RECEIVED A VIRUS.</h3>
+      <p>You have appeared to have accumulated several viruses. Please download antivirus now</p>
+      <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay8')">DOWNLOAD</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay8')">X</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="popupOverlay9">
+    <div class="popupwindow">
+      <h3>You have received $1,000,000!!!</h3>
+      <p>Kindly accept the cash that has been sent to your account.</p>
+      <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay9')">Accept Cash!!!!</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay9')">X</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="popupOverlay10">
+    <div class="popupwindow">
+      <h3>Enjoying the website? Please leave a review!</h3>
+      <p>Give a rating from 1✰ to 5✰ on your satisfaction.</p>
+      <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwl0EH615WXSyxyA7s_cPSMJh7JXJ-NZ-EfqPdlQ541SI_SbYu_y3KxxJ-s8Vfp0s13nIsf_uajx0VPx6TQHsX6Co0j3c8PqDxBrYhrWmHQ" width="200" height="200"></p>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay10')">✰</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay10')">✰✰</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay10')">✰✰✰</button>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay10')">✰✰✰✰</button>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay10')">✰✰✰✰✰</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="popupOverlay11">
+    <div class="popupwindow">
+      <h3>⚠️ Suspicious Download Detected!</h3>
+      <p>Your system has detected an unauthorized download attempt.<br>
+         Do you wish to <b>install "SuperClean Antivirus 2.0"</b> to fix this issue?</p>
+      <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay11')">Install Now</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay11')">Ignore Warning</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="popupOverlay12">
+    <div class="popupwindow">
+      <h3>💰 Congratulations!</h3>
+      <p>You are our <b>1,000,000th visitor!</b><br>
+         Click below to claim your <b>FREE iPhone 16 Ultra Pro Max</b> giveaway.</p>
+      <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay12')">Claim Prize 🎁</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay12')">No Thanks</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="popupOverlay13">
+    <div class="popupwindow">
+      <h3>Professor Leckman</h3>
+      <p>Isn't he a great professor?</p>
+      <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwl0EH615WXSyxyA7s_cPSMJh7JXJ-NZ-EfqPdlQ541SI_SbYu_y3KxxJ-s8Vfp0s13nIsf_uajx0VPx6TQHsX6Co0j3c8PqDxBrYhrWmHQ" width="200" height="200"></p>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay13')">YES!</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay13')">NO!</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="popupOverlay14">
+    <div class="popupwindow">
+      <h3>WARNING! WARNING! YOU HAVE RECEIVED A VIRUS.</h3>
+      <p>You have appeared to have accumulated several viruses. Please download antivirus now</p>
+      <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay14')">DOWNLOAD</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay14')">X</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="popupOverlay15">
+    <div class="popupwindow">
+      <h3>You have received $1,000,000!!!</h3>
+      <p>Kindly accept the cash that has been sent to your account.</p>
+      <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay15')">Accept Cash!!!!</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay15')">X</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="popupOverlay16">
+    <div class="popupwindow">
+      <h3>Enjoying the website? Please leave a review!</h3>
+      <p>Give a rating from 1✰ to 5✰ on your satisfaction.</p>
+      <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwl0EH615WXSyxyA7s_cPSMJh7JXJ-NZ-EfqPdlQ541SI_SbYu_y3KxxJ-s8Vfp0s13nIsf_uajx0VPx6TQHsX6Co0j3c8PqDxBrYhrWmHQ" width="200" height="200"></p>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay16')">✰</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay16')">✰✰</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay16')">✰✰✰</button>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay16')">✰✰✰✰</button>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay16')">✰✰✰✰✰</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="popupOverlay17">
+    <div class="popupwindow">
+      <h3>⚠️ Suspicious Download Detected!</h3>
+      <p>Your system has detected an unauthorized download attempt.<br>
+         Do you wish to <b>install "SuperClean Antivirus 2.0"</b> to fix this issue?</p>
+      <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay17')">Install Now</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay17')">Ignore Warning</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="popupOverlay18">
+    <div class="popupwindow">
+      <h3>💰 Congratulations!</h3>
+      <p>You are our <b>1,000,000th visitor!</b><br>
+         Click below to claim your <b>FREE iPhone 16 Ultra Pro Max</b> giveaway.</p>
+      <p><img src="error.jpg" width="250" height="250" alt="Antivirus Icon"></p>
+      <button class="close-btn-yes" onclick="closePopup('popupOverlay18')">Claim Prize 🎁</button>
+      <button class="close-btn-no" onclick="closePopup('popupOverlay18')">No Thanks</button>
+    </div>
+  </div>
+  
   <!-- Progress -->
-   
+  <div class="progressContainer">
+        <div id="progressBar" class="progressBar"></div>
+    </div>
+  <button class="enter-btn" id="enterButton" onclick="openRandomPopup(); showAlert(); startBgm()">Enter</button>
+
   <!-- audio -->
   <audio id="bgm" src="bg.wav" preload="auto" loop></audio>
   <audio id="errorSound" src="beep.wav" preload="auto"></audio>
 
   <script>
-    const totalPopups = 50;
-    let removedPopups;
+    const totalPopups = 18;
+    let removedPopups = 0;
     let popupTimer;
     let alertTimer;
 
@@ -214,19 +344,10 @@
     }*/
 
     function openSeveralPopups(numPopups) {
-      for (i = 0; i < numPopups; i++) {
-        openRandomPopup();
+      for (i = 1; i < numPopups + 1; i++) {
+        var popupId = "popupOverlay" + i;
+        openPopup(popupId);
       }
-    }
-
-    function openRandomPopup() {
-      var randNum = Math.floor(Math.random() * 6) + 1;
-      var randPopupId = "popupOverlay" + randNum;
-      openPopup(randPopupId);
-    }
-
-    function startAlertTimer() {
-      alertTimer = setTimeout(showAlert, 5000);
     }
 
     function openPopup(popupId) {
@@ -236,14 +357,17 @@
 
       const errorPopups = ['popupOverlay2','popupOverlay3','popupOverlay5','popupOverlay6'];
       if (errorPopups.includes(popupId)) playErrorSound();
-      var randX = ((Math.random() * 2 - 1) * window.innerWidth * 0.4);
-      var randY = ((Math.random() * 2 - 1) * window.innerHeight * 0.3);
+      var randX = ((Math.random() * 2 - 1) * window.innerWidth * 0.35);
+      var randY = ((Math.random() * 2 - 1) * window.innerHeight * 0.2);
       popup.style.left = `${randX}px`;
       popup.style.top = `${randY}px`;
     }
     function closePopup(popupId) {
       document.getElementById(popupId).style.display = "none";
       removedPopups++;
+      if (removedPopups == totalPopups) {
+        showAlert();
+      }
       updateProgressBar();
       //startPopupTimer(); 
     }
