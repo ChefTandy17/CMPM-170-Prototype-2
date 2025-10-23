@@ -45,6 +45,15 @@
       width: 300px;
       text-align: center;
     }
+    .completedpopupwindow {
+      position: fixed;
+      background: rgba(1, 27, 138);
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(163, 248, 146, 0.3);
+      width: 300px;
+      text-align: center;
+    }
     .close-btn-yes, .close-btn-no {
       background: rgb(59, 78, 165);
       color: white;
@@ -314,20 +323,49 @@
       <button class="close-btn-no" onclick="closePopup('popupOverlay18')">No Thanks</button>
     </div>
   </div>
+
+   <!-- popup for survey completion -->
+  <div class="overlay" id="popupOverlayEnter">
+  <div class="completedpopupwindow">
+      <h3>CONGRATULATIONS!!!</h3>
+      <h2>YOU HAVE COMPLETED THE SURVEY!!!</h2>
+      <p>You should be proud</p>
+      <p><img src="https://img.freepik.com/free-vector/abstract-background-with-light-wave-blurred-backdrop-vector-illustration-your-graphic-design-banner-wallpaper-template-poster_1142-7633.jpg?semt=ais_hybrid&w=740&q=80" width="300" height="250" alt="Cool Image"></p>
+     
+    </div>
+  </div>
   
   <!-- Progress -->
   <div class="progressContainer">
         <div id="progressBar" class="progressBar"></div>
     </div>
-  <button class="enter-btn" id="enterButton" onclick="openRandomPopup(); showAlert(); startBgm()">Enter</button>
+  <button class="enter-btn" id="enterButton" onclick="checkFormAndShowPopup()">Enter</button>
 
   <!-- audio -->
   <audio id="bgm" src="bg.wav" preload="auto" loop></audio>
   <audio id="errorSound" src="beep.wav" preload="auto"></audio>
+  <audio id="yaySound" src="yay.mp3" preload="auto"></audio>
 
   <script>
     const totalPopups = 18;
     let removedPopups = 0;
+
+    // to check for completion of form
+    function checkFormAndShowPopup() {
+      const nameCheck = document.getElementById('nameInput').value.trim();
+      const dateCheck = document.getElementById('dateInput').value.trim();
+      const birthdayCheck = document.getElementById('birthdayInput').value.trim();
+      const taCheck = document.getElementById('taInput').value.trim();
+      if (nameCheck && dateCheck && birthdayCheck && taCheck) {
+        playYaySound();
+        openPopup("popupOverlayEnter");
+      } 
+      // this alert will pop up if it's not filled all the way
+      else {
+        alert("I know you didn't fill it all the way!");
+      }
+    }
+
     let popupTimer;
     let alertTimer;
 
@@ -396,6 +434,14 @@
       sfx.currentTime = 0;
       sfx.play().catch(() => {});
     }
+
+    function playYaySound() {
+      const sfx = document.getElementById('yaySound');
+      if (!sfx) return;
+      sfx.currentTime = 0;
+      sfx.play().catch(() => {});
+    }
+
 
     document.addEventListener('keydown', function (event) {
       if (event.key === 'v' || event.key === 'V') openRandomPopup();
